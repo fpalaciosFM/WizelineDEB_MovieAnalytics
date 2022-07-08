@@ -1,9 +1,9 @@
 # Google Kubernetes Engine (GKE), Airflow and Terraform template
 
 
-## Prerequisites
+## Prerequisites for Windows Implementation using PowerShell
 - [Configured GCP account](https://cloud.google.com/)
-- [Homebrew](https://brew.sh/) (if you're using MacOS)
+- [Scoop](https://scoop.sh/) (if you're using Windows)
 - [Kubectl cli](https://kubernetes.io/docs/tasks/tools/) (choose the OS you're working with)
 - [gCloud SDK](https://cloud.google.com/sdk/docs/quickstart)
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) >= 0.13
@@ -17,8 +17,8 @@
 2. Create a [virtual environment for your local project](https://medium.com/@dakota.lillie/an-introduction-to-virtual-environments-in-python-ce16cda92853)
 and activate it:
     ```bash
-    python3 -m venv .venv # create virtual environment
-    source .venv/bin/activate # activate virtual environment
+    python -m venv .venv # create virtual environment
+    .\.venv\Scripts\Activate.ps1 # activate virtual environment
     deactivate # DO NOT RUN YET: deactivates virtual environment
     ```
 
