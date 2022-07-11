@@ -12,7 +12,7 @@ dags:
 
   gitSync:
     enabled: true
-    repo: https://github.com/arantxa-ibarra/airflow-dags
+    repo: https://github.com/fpalaciosFM/WizelineDEB_MovieAnalytics
     branch: main
     rev: HEAD
     depth: 1
@@ -20,7 +20,7 @@ dags:
     maxFailures: 0
     # subpath within the repo where dags are located
     # should be "" if dags are at repo root
-    subPath: ""
+    subPath: "Airflow-DAGs"
 
 
 logs:
