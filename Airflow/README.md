@@ -83,7 +83,7 @@ root of the project named as *terraform.tfvars*, changing the property *project_
      ```bash
      kubectl create namespace nfs # creates namespace
      kubectl -n nfs apply -f nfs/nfs-server.yaml # creates server
-     export NFS_SERVER=$(kubectl -n nfs get service/nfs-server -o jsonpath="{.spec.clusterIP}")
+     Set-Variable  NFS_SERVER $(kubectl -n nfs get service/nfs-server -o jsonpath="{.spec.clusterIP}")
      ```
 
 11. Create a namespace for storage deployment:
@@ -98,9 +98,9 @@ root of the project named as *terraform.tfvars*, changing the property *project_
 
 13. Install nfs-external-provisioner:
      ```bash
-     helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
-     --namespace storage \
-     --set nfs.server=$NFS_SERVER \
+     helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner `
+     --namespace storage `
+     --set nfs.server=$NFS_SERVER `
      --set nfs.path=/
      ```
 
