@@ -8,12 +8,12 @@ def print_hello():
     hw = "Hello world from your first Airflow DAG!"
 
     with open("test_airflow.txt", "w") as f:
-        f.write("hola mundo")
+        f.write("hola mundo desde archivo")
 
     print("Hola Log")
 
     with open("test_airflow.txt", "r") as f:
-        print(f.readlines)
+        print(f.readlines())
 
     return hw
 
