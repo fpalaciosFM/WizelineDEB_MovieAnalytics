@@ -1,5 +1,3 @@
-from asyncio.log import logger
-import logging
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
@@ -8,7 +6,10 @@ from airflow.operators.python_operator import PythonOperator
 
 def print_hello():
     hw = 'Hello world from your first Airflow DAG!'
-    logger.info(hw)
+
+    with open('test.txt', 'w') as f:
+        f.write('hola mundo')
+
     return hw
 
 
