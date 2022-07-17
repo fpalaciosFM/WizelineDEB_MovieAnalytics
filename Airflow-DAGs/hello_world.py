@@ -7,7 +7,7 @@ from airflow.operators.python_operator import PythonOperator
 def print_hello():
     hw = 'Hello world from your first Airflow DAG!'
 
-    with open('test.txt', 'w') as f:
+    with open('test_airflow.txt', 'w') as f:
         f.write('hola mundo')
 
     return hw
