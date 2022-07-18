@@ -40,35 +40,32 @@ def download_file_gdrive(file_id: str) -> bytes:
     file_id: ID of the file to download
     Returns : downloaded file with type 'bytes'.
     """
-    file = None
 
-    with open('gcloud_service_account.json', 'wr') as f:
-        f.write(Variable.get('gcloud_service_account'))
+    with open("gcloud_service_account.json", "wr") as f:
+        f.write(Variable.get("gcloud_service_account"))
 
-        # Google Drive API must be enabled in GCP
-        # Using google service account for gdrive api
-        creds, _ = google.auth.load_credentials_from_file(
-            "gcloud_service_account.json"
-        )
+    # Google Drive API must be enabled in GCP
+    # Using google service account for gdrive api
+    creds, _ = google.auth.load_credentials_from_file("gcloud_service_account.json")
 
-        try:
-            # create gmail api client
-            service = build("drive", "v3", credentials=creds)
+    try:
+        # create gmail api client
+        service = build("drive", "v3", credentials=creds)
 
-            # prepare request
-            request = service.files().get_media(fileId=file_id)
+        # prepare request
+        request = service.files().get_media(fileId=file_id)
 
-            # start file download
-            file = io.BytesIO()
-            downloader = MediaIoBaseDownload(file, request)
-            done = False
-            while done is False:
-                status, done = downloader.next_chunk()
-                print(f"Download {int(status.progress() * 100)}.")
+        # start file download
+        file = io.BytesIO()
+        downloader = MediaIoBaseDownload(file, request)
+        done = False
+        while done is False:
+            status, done = downloader.next_chunk()
+            print(f"Download {int(status.progress() * 100)}.")
 
-        except HttpError as error:
-            print(f"An error occurred: {error}")
-            file = None
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        file = None
 
     return file.getvalue() if file != None else None
 
