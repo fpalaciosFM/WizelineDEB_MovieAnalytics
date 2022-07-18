@@ -20,7 +20,7 @@ default_args = {
     "depends_on_past": False,
     "start_date": datetime(2021, 10, 1),
     "email": ["fpalacios.fm.gcp@gmail.com"],
-    "email_on_failure": True,
+    "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
     "retry_delay": timedelta(minutes=3),
@@ -42,7 +42,7 @@ def download_file_gdrive(file_id: str) -> bytes:
     """
 
     with open("gcloud_service_account.json", "w") as f:
-        f.write(Variable.get("gcloud_service_account"))
+        f.write(Variable.get("gdrive_service_account"))
 
     # Google Drive API must be enabled in GCP
     # Using google service account for gdrive api
