@@ -1,3 +1,4 @@
+from msilib.schema import File
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
@@ -9,6 +10,8 @@ import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
+
+from airflow.models import Variable
 
 # from pyspark.sql import SparkSession
 # from pyspark.sql import DataFrame
@@ -38,31 +41,35 @@ def download_file_gdrive(file_id: str) -> bytes:
     file_id: ID of the file to download
     Returns : downloaded file with type 'bytes'.
     """
+    File = None
 
-    # Google Drive API must be enabled in GCP
-    # Using google service account for gdrive api
-    creds, _ = google.auth.load_credentials_from_file(
-        "../.secrets/movies-analytics-355603-8705d961ef61.json"
-    )
+    with open('gcloud_service_account.json', 'wr') as f:
+        f.write(Variable.get('gcloud_service_account'))
 
-    try:
-        # create gmail api client
-        service = build("drive", "v3", credentials=creds)
+        # Google Drive API must be enabled in GCP
+        # Using google service account for gdrive api
+        creds, _ = google.auth.load_credentials_from_file(
+            "gcloud_service_account.json"
+        )
 
-        # prepare request
-        request = service.files().get_media(fileId=file_id)
+        try:
+            # create gmail api client
+            service = build("drive", "v3", credentials=creds)
 
-        # start file download
-        file = io.BytesIO()
-        downloader = MediaIoBaseDownload(file, request)
-        done = False
-        while done is False:
-            status, done = downloader.next_chunk()
-            print(f"Download {int(status.progress() * 100)}.")
+            # prepare request
+            request = service.files().get_media(fileId=file_id)
 
-    except HttpError as error:
-        print(f"An error occurred: {error}")
-        file = None
+            # start file download
+            file = io.BytesIO()
+            downloader = MediaIoBaseDownload(file, request)
+            done = False
+            while done is False:
+                status, done = downloader.next_chunk()
+                print(f"Download {int(status.progress() * 100)}.")
+
+        except HttpError as error:
+            print(f"An error occurred: {error}")
+            file = None
 
     return file.getvalue() if file != None else None
 
