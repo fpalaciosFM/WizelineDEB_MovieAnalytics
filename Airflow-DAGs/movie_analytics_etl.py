@@ -41,7 +41,7 @@ def download_file_gdrive(file_id: str) -> bytes:
     Returns : downloaded file with type 'bytes'.
     """
 
-    with open("gcloud_service_account.json", "wr") as f:
+    with open("gcloud_service_account.json", "w") as f:
         f.write(Variable.get("gcloud_service_account"))
 
     # Google Drive API must be enabled in GCP
