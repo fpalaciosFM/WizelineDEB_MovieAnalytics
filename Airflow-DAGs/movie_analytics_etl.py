@@ -10,8 +10,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
 
-from pyspark.sql import SparkSession
-from pyspark.sql import DataFrame
+# from pyspark.sql import SparkSession
+# from pyspark.sql import DataFrame
 
 default_args = {
     "owner": "Fernando Palacios",
@@ -81,18 +81,19 @@ def download_gdrive_local(file_id: str, file_name: str) -> None:
 
 
 def test_downloaded_csv_file(file_name: str) -> None:
-    spark = (
-        SparkSession.builder()
-        .master("local[1]")
-        .appName("SparkMovieAnalytics")
-        .getOrCreate()
-    )
-    df: DataFrame = spark.read.options(
-        header="True", inferSchema="True", delimiter=","
-    ).csv(file_name)
+    # spark = (
+    #     SparkSession.builder()
+    #     .master("local[1]")
+    #     .appName("SparkMovieAnalytics")
+    #     .getOrCreate()
+    # )
+    # df: DataFrame = spark.read.options(
+    #     header="True", inferSchema="True", delimiter=","
+    # ).csv(file_name)
 
-    print(f"type of df = '{type(df)}' with file '{file_name}'")
-    df.show(5)
+    # print(f"type of df = '{type(df)}' with file '{file_name}'")
+    # df.show(5)
+    pass
 
 
 task_download_user_purchase_csv = PythonOperator(
