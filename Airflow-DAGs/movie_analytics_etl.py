@@ -132,7 +132,7 @@ task_download_log_reviews_csv = PythonOperator(
 )
 
 task_test_user_purchase_csv = PythonOperator(
-    task_id="task_test_user_purchase_csv",
+    task_id="test_user_purchase_csv",
     provide_context=True,
     python_callable=test_downloaded_csv_file,
     op_kwargs={
@@ -143,7 +143,7 @@ task_test_user_purchase_csv = PythonOperator(
 
 
 task_test_movie_review_csv = PythonOperator(
-    task_id="download_movie_review_csv",
+    task_id="test_movie_review_csv",
     provide_context=True,
     python_callable=test_downloaded_csv_file,
     op_kwargs={
