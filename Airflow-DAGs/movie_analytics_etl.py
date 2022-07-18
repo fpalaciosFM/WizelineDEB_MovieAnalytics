@@ -1,4 +1,3 @@
-from msilib.schema import File
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
@@ -41,7 +40,7 @@ def download_file_gdrive(file_id: str) -> bytes:
     file_id: ID of the file to download
     Returns : downloaded file with type 'bytes'.
     """
-    File = None
+    file = None
 
     with open('gcloud_service_account.json', 'wr') as f:
         f.write(Variable.get('gcloud_service_account'))
