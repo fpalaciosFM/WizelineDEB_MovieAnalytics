@@ -14,6 +14,7 @@ from airflow.models import Variable
 
 # from pyspark.sql import SparkSession
 # from pyspark.sql import DataFrame
+import pandas as pd
 
 default_args = {
     "owner": "Fernando Palacios",
@@ -84,6 +85,8 @@ def download_gdrive_local(file_id: str, file_name: str) -> None:
 
 
 def test_downloaded_csv_file(file_name: str) -> None:
+    df = pd.read_csv(file_name)
+    print(df.head(5))
     # spark = (
     #     SparkSession.builder()
     #     .master("local[1]")
