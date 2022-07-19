@@ -45,12 +45,12 @@ def download_file_gdrive(file_id: str) -> bytes:
     Returns : downloaded file with type 'bytes'.
     """
 
-    # with open("gcloud_service_account.json", "w") as f:
-    #     f.write(Variable.get("gdrive_service_account"))
+    with open("gcloud_service_account.json", "w") as f:
+        f.write(Variable.get("gdrive_service_account"))
 
     # Google Drive API must be enabled in GCP
     # Using google service account for gdrive api
-    creds, _ = google.auth.load_credentials_from_file("gdrive_service_account")
+    creds, _ = google.auth.load_credentials_from_file("gcloud_service_account.json")
 
     try:
         # create gmail api client
@@ -232,5 +232,5 @@ task_download_log_reviews_csv >> task_test_log_reviews_csv
 create_table_user_purchase
 [
     create_table_user_purchase,
-    task_download_user_purchase_csv,
+    task_test_user_purchase_csv,
 ] >> task_load_table_user_purchase
