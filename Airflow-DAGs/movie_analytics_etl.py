@@ -1,3 +1,4 @@
+import socket
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
@@ -84,10 +85,15 @@ def download_gdrive_local(file_id: str, file_name: str) -> None:
     with open(file_name, "wb") as file:
         bfile = download_file_gdrive(file_id)
         file.write(bfile)
-    return f"The file '{file_name}' has been downloadeded"
+    return f"The file '{file_name}' has been downloaded"
 
 
 def test_downloaded_csv_file(file_name: str) -> None:
+    hostname = socket.gethostname()
+    IPAddr = socket.gethostbyname(hostname)
+    print("Your Computer Name is:" + hostname)
+    print("Your Computer IP Address is:" + IPAddr)
+    
     df = pd.read_csv(file_name)
     print(df.head(5))
     # spark = (
