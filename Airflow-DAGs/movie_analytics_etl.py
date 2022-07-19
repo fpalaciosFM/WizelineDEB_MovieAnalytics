@@ -107,8 +107,8 @@ def test_downloaded_csv_file(file_name: str) -> None:
 
 def csv_to_postgres(file_name: str, destination_table_name: str):
     # Open Postgres Connection
-    pg_hook = PostgresHook(postgres_conn_id="conn_postgress")
-    get_postgres_conn = PostgresHook(postgres_conn_id="conn_postgress").get_conn()
+    pg_hook = PostgresHook(postgres_conn_id="postgres_default")
+    get_postgres_conn = pg_hook.get_conn()
     curr = get_postgres_conn.cursor("cursor")
     # CSV loading to table.
 
