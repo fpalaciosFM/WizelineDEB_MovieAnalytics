@@ -1,8 +1,11 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
+from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.hooks.postgres_hook import PostgresHook
 
 from datetime import timedelta, datetime
+import os
 import io
 import google.auth
 
@@ -28,7 +31,7 @@ default_args = {
 }
 
 dag = DAG(
-    "MovieAnalyticsETL",
+    "MovieAnalyticsETL_prototype_1",
     default_args=default_args,
     schedule_interval="@once",
     catchup=False,
@@ -102,6 +105,30 @@ def test_downloaded_csv_file(file_name: str) -> None:
     pass
 
 
+def csv_to_postgres(file_name: str, destination_table_name: str):
+    # Open Postgres Connection
+    pg_hook = PostgresHook(postgres_conn_id="conn_postgress")
+    get_postgres_conn = PostgresHook(postgres_conn_id="conn_postgress").get_conn()
+    curr = get_postgres_conn.cursor("cursor")
+    # CSV loading to table.
+
+    # Getting the current work directory (cwd)
+    table_dir = os.getcwd()
+    # r=root, d=directories, f=files
+    for r, d, f in os.walk(table_dir):
+        for file in f:
+            if file.endswith(file_name):
+                table_path = os.path.join(r, file)
+
+    print(table_path)
+
+    file = table_path
+    with open(file, "r") as f:
+        next(f)
+        curr.copy_from(f, destination_table_name, sep=",")
+        get_postgres_conn.commit()
+
+
 task_download_user_purchase_csv = PythonOperator(
     task_id="download_user_purchase_csv",
     provide_context=True,
@@ -169,6 +196,41 @@ task_test_log_reviews_csv = PythonOperator(
     dag=dag,
 )
 
+create_table_user_purchase = PostgresOperator(
+    task_id="create_table_user_purchase",
+    sql="""
+            CREATE TABLE user_purchase (
+                invoice_number varchar(10),
+                stock_code varchar(20),
+                detail varchar(1000),
+                quantity int,
+                invoice_date timestamp,
+                unit_price numeric(8,3),
+                customer_id int,
+                country varchar(20)
+            );
+        """,
+    postgres_conn_id="conn_postgress",
+    autocommit=True,
+    dag=dag,
+)
+
+task_load_table_user_purchase = PythonOperator(
+    task_id="task_load_table_user_purchase",
+    provide_context=True,
+    python_callable=csv_to_postgres,
+    op_kwargs={
+        "file_name": "user_purchase.csv",
+        "destination_table_name": "user_purchase",
+    },
+    dag=dag,
+)
+
 task_download_user_purchase_csv >> task_test_user_purchase_csv
 task_download_movie_review_csv >> task_test_movie_review_csv
 task_download_log_reviews_csv >> task_test_log_reviews_csv
+create_table_user_purchase
+[
+    create_table_user_purchase,
+    task_download_user_purchase_csv,
+] >> task_load_table_user_purchase
