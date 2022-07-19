@@ -210,7 +210,7 @@ create_table_user_purchase = PostgresOperator(
                 country varchar(20)
             );
         """,
-    postgres_conn_id="conn_postgress",
+    postgres_conn_id="postgres_default",
     autocommit=True,
     dag=dag,
 )
