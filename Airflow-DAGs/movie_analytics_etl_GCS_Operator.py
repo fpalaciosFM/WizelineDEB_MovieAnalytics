@@ -1,9 +1,11 @@
 import socket
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.hooks.postgres_hook import PostgresHook
+
 # from airflow.providers.google.cloud.operators.cloud_sql import CloudSQLExecuteQueryOperator
 
 from datetime import timedelta, datetime
@@ -17,8 +19,8 @@ from googleapiclient.http import MediaIoBaseDownload
 
 from airflow.models import Variable
 
-from pyspark.sql import SparkSession
-from pyspark.sql import DataFrame
+# from pyspark.sql import SparkSession
+# from pyspark.sql import DataFrame
 import pandas as pd
 
 default_args = {
@@ -94,7 +96,7 @@ def test_downloaded_csv_file(file_name: str) -> None:
     IPAddr = socket.gethostbyname(hostname)
     print("Your Computer Name is:" + hostname)
     print("Your Computer IP Address is:" + IPAddr)
-    
+
     df = pd.read_csv(file_name)
     print(df.head(5))
     # spark = (
@@ -233,6 +235,9 @@ task_load_table_user_purchase = PythonOperator(
     dag=dag,
 )
 
+task_install_pyspark = BashOperator(bash_command="pip install pyspark")
+
+task_install_pyspark
 task_download_user_purchase_csv >> task_test_user_purchase_csv
 task_download_movie_review_csv >> task_test_movie_review_csv
 task_download_log_reviews_csv >> task_test_log_reviews_csv
