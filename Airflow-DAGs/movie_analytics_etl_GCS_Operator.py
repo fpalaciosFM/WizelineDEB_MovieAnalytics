@@ -33,7 +33,7 @@ default_args = {
 }
 
 dag = DAG(
-    "MovieAnalyticsETL_prototype_1",
+    "movie_analytics_etl_GCS_Operator",
     default_args=default_args,
     schedule_interval="@once",
     catchup=False,
