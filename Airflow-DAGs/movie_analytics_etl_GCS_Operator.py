@@ -19,7 +19,8 @@ from googleapiclient.http import MediaIoBaseDownload
 
 from airflow.models import Variable
 
-# from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession
+
 # from pyspark.sql import DataFrame
 import pandas as pd
 
