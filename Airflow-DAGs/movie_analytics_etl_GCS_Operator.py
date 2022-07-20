@@ -236,7 +236,7 @@ task_load_table_user_purchase = PythonOperator(
 )
 
 task_install_pyspark = BashOperator(
-    task_id="task_install_pyspark", bash_command="pip install pyspark"
+    task_id="task_install_pyspark", dag=dag, bash_command="pip install pyspark"
 )
 
 task_install_pyspark
