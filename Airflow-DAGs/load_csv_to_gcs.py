@@ -33,4 +33,5 @@ clear_table = PostgresOperator(
         C1 int,
         C2 int
     )""",
+    dag=dag
 )
