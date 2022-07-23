@@ -23,7 +23,7 @@ dag = DAG(
     catchup=False,
 )
 
-POSTGRES_CONN_ID = "POSTGRES_CONN_DEFAULT"
+POSTGRES_CONN_ID = "POSTGRES_CONN_TEST"
 
 
 clear_table = PostgresOperator(
