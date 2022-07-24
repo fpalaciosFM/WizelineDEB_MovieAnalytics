@@ -17,7 +17,7 @@ default_args = {
 
 
 dag = DAG(
-    "load_csv_to_gcs",
+    "load_csv_to_postgres",
     default_args=default_args,
     schedule_interval="@once",
     catchup=False,
