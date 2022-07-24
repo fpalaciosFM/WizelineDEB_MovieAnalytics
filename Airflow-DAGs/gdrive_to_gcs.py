@@ -35,7 +35,7 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 
 
 task_transfer_file_from_gdrive_to_gcs = PythonOperator(
-    task_id="transfer file from gdrive to gcs",
+    task_id="transfer_file_from_gdrive_to_gcs",
     provide_context=True,
     python_callable=transfer_file_gdrive_to_gcs,
     op_kwargs={
