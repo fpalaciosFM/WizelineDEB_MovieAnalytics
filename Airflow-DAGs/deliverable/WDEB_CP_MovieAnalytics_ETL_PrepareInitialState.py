@@ -64,7 +64,7 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 
 task_load_gdrive_to_gcs_user_purchase = PythonOperator(
     dag=dag,
-    id="load_gdrive_to_gcs_user_purchase",
+    task_id="load_gdrive_to_gcs_user_purchase",
     kwargs={
         "file_id": "1rqmnKgl_HXOfM7p4G_RC5v4clvbmJvks",
         "bucket_name": "wizeline-deb-fp-bucket-stage",
@@ -76,7 +76,7 @@ task_load_gdrive_to_gcs_user_purchase = PythonOperator(
 
 task_load_gdrive_to_gcs_movie_review = PythonOperator(
     dag=dag,
-    id="load_gdrive_to_gcs_movie_review",
+    task_id="load_gdrive_to_gcs_movie_review",
     kwargs={
         "file_id": "1eh_0vzQGWnUZm5OH8j5M1D88he0uHILi",
         "bucket_name": "wizeline-deb-fp-bucket-stage",
@@ -88,7 +88,7 @@ task_load_gdrive_to_gcs_movie_review = PythonOperator(
 
 task_load_gdrive_to_gcs_log_reviews = PythonOperator(
     dag=dag,
-    id="load_gdrive_to_gcs_log_reviews",
+    task_id="load_gdrive_to_gcs_log_reviews",
     kwargs={
         "file_id": "1UVKS9V2PAQKvyBwkaMl2wEYa3zgL",
         "bucket_name": "wizeline-deb-fp-bucket-stage",
