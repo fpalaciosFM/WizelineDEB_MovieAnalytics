@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime
 
 from airflow import DAG
+from airflow.models import Variable
 from airflow.providers.google.suite.hooks.drive import GoogleDriveHook
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
 from airflow.operators.python_operator import PythonOperator
@@ -34,7 +35,11 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 
     # Google Drive API must be enabled in GCP
     # Using google service account for gdrive api
-    creds, _ = google.auth.default()
+
+    with open("gcloud_service_account.json", "w") as f:
+        f.write(Variable.get("gdrive_service_account"))
+
+    creds, _ = google.auth.load_credentials_from_file("gcloud_service_account.json")
     gcs_hook = GCSHook()
 
     try:
@@ -46,7 +51,7 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 
         with gcs_hook.provide_file_and_upload(
             bucket_name=bucket_name, object_name=object_name
-        ) as file:        
+        ) as file:
             downloader = MediaIoBaseDownload(file, request)
             done = False
             while done is False:
