@@ -5,6 +5,12 @@ from airflow.providers.google.suite.hooks.drive import GoogleDriveHook
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
 from airflow.operators.python_operator import PythonOperator
 
+import google.auth
+
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaIoBaseDownload
+
 default_args = {
     "owner": "Fernando Palacios",
     "depends_on_past": False,
@@ -25,15 +31,31 @@ dag = DAG(
 
 
 def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str):
-    gdrive_hook = GoogleDriveHook(
-        gcp_conn_id="google_cloud_drive", delegate_to="fpalacios.fm@gmail.com"
-    )
+
+    # Google Drive API must be enabled in GCP
+    # Using google service account for gdrive api
+    creds, _ = google.auth.default()
     gcs_hook = GCSHook()
-    with gcs_hook.provide_file_and_upload(
-        bucket_name=bucket_name, object_name=object_name
-    ) as file:
-        gdrive_hook.download_file(file_id=file_id, file_handle=file)
-    return "success"
+
+    try:
+        # create gmail api client
+        service = build("drive", "v3", credentials=creds)
+
+        # prepare request
+        request = service.files().get_media(fileId=file_id)
+
+        with gcs_hook.provide_file_and_upload(
+            bucket_name=bucket_name, object_name=object_name
+        ) as file:        
+            downloader = MediaIoBaseDownload(file, request)
+            done = False
+            while done is False:
+                status, done = downloader.next_chunk()
+                print(f"Download {int(status.progress() * 100)}.")
+
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+        file = None
 
 
 task_transfer_file_from_gdrive_to_gcs = PythonOperator(
