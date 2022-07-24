@@ -90,7 +90,7 @@ task_load_gdrive_to_gcs_log_reviews = PythonOperator(
     dag=dag,
     task_id="load_gdrive_to_gcs_log_reviews",
     op_kwargs={
-        "file_id": "1UVKS9V2PAQKvyBwkaMl2wEYa3zgL",
+        "file_id": "1UVKS9V2PAQKvyBwkaMl2wEYa3zgL-GlH",
         "bucket_name": "wizeline-deb-fp-bucket-stage",
         "object_name": "log_reviews.csv",
     },
