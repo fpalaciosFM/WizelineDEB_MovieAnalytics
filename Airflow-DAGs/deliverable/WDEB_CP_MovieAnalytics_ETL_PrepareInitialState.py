@@ -2,7 +2,6 @@ from datetime import timedelta, datetime
 
 from airflow import DAG
 from airflow.models import Variable
-from airflow.providers.google.suite.hooks.drive import GoogleDriveHook
 from airflow.providers.google.cloud.hooks.gcs import GCSHook
 from airflow.operators.python_operator import PythonOperator
 
@@ -97,3 +96,7 @@ task_load_gdrive_to_gcs_log_reviews = PythonOperator(
     },
     python_callable=transfer_file_gdrive_to_gcs,
 )
+
+task_load_gdrive_to_gcs_user_purchase
+task_load_gdrive_to_gcs_movie_review
+task_load_gdrive_to_gcs_log_reviews
