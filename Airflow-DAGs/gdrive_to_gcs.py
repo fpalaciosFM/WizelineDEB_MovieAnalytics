@@ -25,7 +25,7 @@ dag = DAG(
 
 
 def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str):
-    gdrive_hook = GoogleDriveHook(gcp_conn_id="gdrive_email")
+    gdrive_hook = GoogleDriveHook(gcp_conn_id="google_cloud_drive")
     gcs_hook = GCSHook()
     with gcs_hook.provide_file_and_upload(
         bucket_name=bucket_name, object_name=object_name
