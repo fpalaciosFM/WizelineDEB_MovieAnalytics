@@ -17,7 +17,7 @@ variable "gke_num_nodes" {
 }
 
 variable "machine_type" {
-  type = string
+  type    = string
   default = "n1-standard-1"
 }
 
@@ -44,14 +44,21 @@ variable "disk_space" {
 
 variable "database_name" {
   description = "Name for the database to be created"
-  default     = "dbname"
+  default     = "stage"
 }
 
 variable "db_username" {
   description = "Username credentials for root user"
   default     = "dbuser"
 }
+
 variable "db_password" {
   description = "Password credentials for root user"
-  default     = "dbpassword"
+  default     = "dbpass"
+}
+
+#GCS
+variable "stg_bucket_name" {
+  description = "GCS stage bucket name"
+  default     = "WizelineDEB_bucket_stage"
 }

@@ -41,3 +41,11 @@ module "cloudsql" {
   db_username       = var.db_username
   db_password       = var.db_password
 }
+
+module "gcs"{
+  source = "./modules/gcs"
+
+  location        = var.region
+  stg_bucket_name = var.stg_bucket_name
+  instance_name   = var.instance_name
+}

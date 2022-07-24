@@ -14,3 +14,6 @@ disk_space        = 10
 database_name     = "dbname"
 db_username       = "dbuser"
 db_password       = "dbpassword"
+
+#GCS
+stage_bucket_name = "bucketname"
