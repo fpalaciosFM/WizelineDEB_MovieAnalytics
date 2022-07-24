@@ -37,6 +37,7 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 task_transfer_file_from_gdrive_to_gcs = PythonOperator(
     task_id="transfer file from gdrive to gcs",
     provide_context=True,
+    python_callable=transfer_file_gdrive_to_gcs,
     op_kwargs={
         "file_id": "1rqmnKgl_HXOfM7p4G_RC5v4clvbmJvks",
         "bucket_name": "wizedeb_movie-analytics_fp_datalake",
