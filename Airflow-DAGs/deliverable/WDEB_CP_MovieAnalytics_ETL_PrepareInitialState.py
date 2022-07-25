@@ -159,6 +159,7 @@ task_load_gdrive_csv_to_postgres = PythonOperator(
         "table_name": "stg.user_purchase",
     },
     python_callable=transfer_csv_gdrive_to_postgres,
+    provide_context=True,
 )
 
 # task_load_gdrive_to_gcs_user_purchase
