@@ -64,7 +64,7 @@ def transfer_csv_gdrive_to_postgres(file_id: str, table_name: str):
         with open("temp.csv", "r") as file:
             next(file)
             curr.copy_expert(
-                sql="COPY stg.{table_name} FROM STDIN DELIMITER ','  CSV HEADER",
+                sql=f"COPY stg.{table_name} FROM STDIN DELIMITER ','  CSV HEADER",
                 file=file,
             )
             postgres_conn.commit()
