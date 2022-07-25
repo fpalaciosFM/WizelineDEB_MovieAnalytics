@@ -101,7 +101,7 @@ def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str
 #     task_id="load_gdrive_to_gcs_user_purchase",
 #     op_kwargs={
 #         "file_id": "1rqmnKgl_HXOfM7p4G_RC5v4clvbmJvks",
-#         "bucket_name": "wizeline-deb-movie-analytics-fp",
+#         "bucket_name": "wizeline-deb-movie-analytics-fpa",
 #         "object_name": "user_purchase.csv",
 #     },
 #     python_callable=transfer_file_gdrive_to_gcs,
@@ -113,7 +113,7 @@ task_load_gdrive_to_gcs_movie_review = PythonOperator(
     task_id="load_gdrive_to_gcs_movie_review",
     op_kwargs={
         "file_id": "1eh_0vzQGWnUZm5OH8j5M1D88he0uHILi",
-        "bucket_name": "wizeline-deb-movie-analytics-fp",
+        "bucket_name": "wizeline-deb-movie-analytics-fpa",
         "object_name": "movie_review.csv",
     },
     python_callable=transfer_file_gdrive_to_gcs,
@@ -125,7 +125,7 @@ task_load_gdrive_to_gcs_log_reviews = PythonOperator(
     task_id="load_gdrive_to_gcs_log_reviews",
     op_kwargs={
         "file_id": "1UVKS9V2PAQKvyBwkaMl2wEYa3zgL-GlH",
-        "bucket_name": "wizeline-deb-movie-analytics-fp",
+        "bucket_name": "wizeline-deb-movie-analytics-fpa",
         "object_name": "log_reviews.csv",
     },
     python_callable=transfer_file_gdrive_to_gcs,
