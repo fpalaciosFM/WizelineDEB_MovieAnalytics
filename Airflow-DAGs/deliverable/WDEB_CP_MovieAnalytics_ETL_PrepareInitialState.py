@@ -72,7 +72,7 @@ def transfer_csv_gdrive_to_postgres(file_id: str, table_name: str):
 
 def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str):
 
-    creds, _ = google.auth.load_credentials_from_file("gcloud_service_account.json")
+    creds, _ = get_gdrive_credentials_with_service_account_var("gcloud_service_account")
     gcs_hook = GCSHook()
 
     try:
