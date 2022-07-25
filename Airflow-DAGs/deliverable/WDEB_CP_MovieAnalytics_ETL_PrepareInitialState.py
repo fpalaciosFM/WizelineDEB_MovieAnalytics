@@ -147,6 +147,8 @@ task_postgres_create_table_user_purchase = PostgresOperator(
             country varchar(20)
         )
     """,
+    postgres_conn_id="postgres_default",
+    autocommit=True,
 )
 
 task_load_gdrive_csv_to_postgres = PythonOperator(
