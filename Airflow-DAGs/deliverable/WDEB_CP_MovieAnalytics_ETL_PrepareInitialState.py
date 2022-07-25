@@ -37,8 +37,8 @@ def get_gdrive_credentials_with_service_account_var(
 ) -> google.auth.credentials.Credentials:
     # Google Drive API must be enabled in GCP
     # Using google service account for gdrive api
-    with open(f"{var_sa_id}.json", "w") as f:
-        f.write(Variable.get("gdrive_service_account"))
+    with open(f"{var_sa_id}.json", "w") as file:
+        file.write(Variable.get(var_sa_id))
 
     creds, _ = google.auth.load_credentials_from_file(f"{var_sa_id}.json")
     return creds
@@ -46,7 +46,7 @@ def get_gdrive_credentials_with_service_account_var(
 
 def transfer_csv_gdrive_to_postgres(file_id: str, table_name: str):
     pg_hook = PostgresHook(postgres_conn_id="postgres_default")
-    creds, _ = get_gdrive_credentials_with_service_account_var("gcloud_service_account")
+    creds = get_gdrive_credentials_with_service_account_var("gcloud_service_account")
 
     try:
         service = build("drive", "v3", credentials=creds)
@@ -72,7 +72,7 @@ def transfer_csv_gdrive_to_postgres(file_id: str, table_name: str):
 
 def transfer_file_gdrive_to_gcs(file_id: str, bucket_name: str, object_name: str):
 
-    creds, _ = get_gdrive_credentials_with_service_account_var("gcloud_service_account")
+    creds = get_gdrive_credentials_with_service_account_var("gcloud_service_account")
     gcs_hook = GCSHook()
 
     try:
