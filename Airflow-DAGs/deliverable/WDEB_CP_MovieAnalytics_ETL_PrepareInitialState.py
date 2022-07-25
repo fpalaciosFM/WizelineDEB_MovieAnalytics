@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from msilib import schema
 
 from airflow import DAG
 from airflow.models import Variable
@@ -156,7 +157,7 @@ task_load_gdrive_csv_to_postgres = PythonOperator(
     task_id="load_gdrive_csv_to_postgres",
     op_kwargs={
         "file_id": "1rqmnKgl_HXOfM7p4G_RC5v4clvbmJvks",
-        "table_name": "stg.user_purchase",
+        "table_name": "user_purchase",
     },
     python_callable=transfer_csv_gdrive_to_postgres,
 )
