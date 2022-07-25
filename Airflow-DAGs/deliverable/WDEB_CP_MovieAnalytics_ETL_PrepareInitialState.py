@@ -149,6 +149,7 @@ task_postgres_create_table_user_purchase = PostgresOperator(
             customer_id int,
             country varchar(20)
         );
+        TRUNCATE TABLE stg.user_purchase;
     """,
     postgres_conn_id="postgres_default",
     autocommit=True,
