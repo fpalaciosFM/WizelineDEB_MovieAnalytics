@@ -145,7 +145,7 @@ task_postgres_create_table_user_purchase = PostgresOperator(
             unit_price numeric(8,3),
             customer_id int,
             country varchar(20)
-        )
+        );
     """,
     postgres_conn_id="postgres_default",
     autocommit=True,
