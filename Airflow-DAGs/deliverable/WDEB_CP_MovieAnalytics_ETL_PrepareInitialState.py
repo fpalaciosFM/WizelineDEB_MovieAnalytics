@@ -1,5 +1,4 @@
 from datetime import timedelta, datetime
-from msilib import schema
 
 from airflow import DAG
 from airflow.models import Variable
