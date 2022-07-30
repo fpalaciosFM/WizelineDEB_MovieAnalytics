@@ -1,0 +1,29 @@
+name: 'Sync GCS Bucket'
+description: 'Sync a Github repository with a Google Cloud Storage (GCS) bucket'
+
+inputs:
+  secrets:
+    description: Google credentials
+    required: true
+  bucket:
+    description: Bucket name
+    required: true
+  sync_git_dir:
+    description: Git directory path to sync
+    required: false
+    default: ''
+  sync_gcs_dir:
+    description: GCS directory path to sync
+    required: false
+    default: ''
+  exclude:
+    description: Regex for excluding files/dirs
+    required: false
+    default: '.git$'
+
+runs:
+  using: docker
+  image: GoogleCloudSDKDockerfile
+branding:
+  icon: arrow-up
+  color: gray-dark
