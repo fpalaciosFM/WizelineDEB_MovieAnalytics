@@ -23,7 +23,7 @@ jobs:
       - name: Google Cloud Storage Bucket Sync (GCP,GCS)
         uses: patrickwyler/gcs-bucket-sync-action@1.3
         with:
-          secrets: ${{ secrets.google_service_account_credentials }}
+          secrets: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           bucket: 'wizeline-deb-movie-analytics-fpa'
           sync_dir: 'Dataproc'
           exclude: '.*\.md$|\.gitignore$|\.git/.*$|\.github/.*$'
