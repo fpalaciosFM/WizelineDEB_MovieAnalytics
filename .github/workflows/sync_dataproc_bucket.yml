@@ -20,6 +20,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+      
       - name: Google Cloud Storage Bucket Sync (GCP,GCS)
         uses: patrickwyler/gcs-bucket-sync-action@1.3
         with:
