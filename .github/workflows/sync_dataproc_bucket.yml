@@ -20,10 +20,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       
       - name: sync dataproc template scripts
-        uses: ./.github/actions/action.yml
+        uses: ./.github/actions/action.yml@v1
         with:
           secrets: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           bucket: 'wizeline-deb-movie-analytics-fpa'
