@@ -20,21 +20,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: sync dataproc template scripts
-        uses: ./.github/actions/action.yml@v1
+      - uses: actions/checkout@master
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
         with:
-          secrets: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
-          bucket: 'wizeline-deb-movie-analytics-fpa'
-          sync_git_dir: 'Dataproc'
-          sync_gcs_dir: 'Dataproc'
-          exclude: '.*\.md$|\.gitignore$|\.git/.*$|\.github/.*$'
-        env:
-          INPUT_SECRETS: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
-          INPUT_BUCKET: 'wizeline-deb-movie-analytics-fpa'
-          INPUT_SYNC_GIT_DIR: 'Dataproc'
-          INPUT_SYNC_GCS_DIR: 'Dataproc'
-          INPUT_EXCLUDE: '.*\.md$|\.gitignore$|\.git/.*$|\.github/.*$'
+          credentials_json: '${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
 
 
