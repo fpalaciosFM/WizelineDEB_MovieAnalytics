@@ -1,0 +1,3 @@
+FROM google/cloud-sdk:alpine
+COPY sync_git_gcs.sh /sync_git_gcs.sh
+ENTRYPOINT ["/sync_git_gcs.sh"]
