@@ -31,6 +31,6 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v0'
 
       - name: 'Use gcloud CLI'
-        run: 'gcloud info'
+        run: 'gsutil -m rsync -r -c -d https://github.com/fpalaciosFM/WizelineDEB_MovieAnalytics/tree/main/Dataproc gs://wizeline-deb-movie-analytics-fpa/Dataproc'
 
 
