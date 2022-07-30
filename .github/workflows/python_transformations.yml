@@ -23,4 +23,4 @@ inputs:
 
 runs:
   using: docker
-  image: ./src/GoogleCloudSDKDockerfile
+  image: ../src/GoogleCloudSDKDockerfile
