@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: sync dataproc template scripts
-        uses: ../actions/sync_git_gcs.yml@master
+        uses: ./.github/actions/sync_git_gcs.yml@master
         with:
           secrets: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS }}
           bucket: 'wizeline-deb-movie-analytics-fpa'
