@@ -11,7 +11,7 @@ variable "region" {
 }
 
 
-#GKE
+### GKE ###
 variable "gke_num_nodes" {
   default     = 2
   description = "number of gke nodes"
@@ -22,7 +22,7 @@ variable "machine_type" {
   default = "n1-standard-1"
 }
 
-# CloudSQL
+### CloudSQL ###
 variable "instance_name" {
   description = "Name for the sql instance database"
   default     = "data-bootcamp"
@@ -58,13 +58,13 @@ variable "db_password" {
   default     = "dbpass"
 }
 
-#GCS
+### GCS ###
 variable "stg_bucket_name" {
   description = "GCS stage bucket name"
   default     = "WizelineDEB_bucket_stage"
 }
 
-#Dataproc
+### Dataproc ###
 variable "dataproc_cluster_name" {
   description = "dataproc cluster name"
   default     = "wdeb-cluster"
@@ -78,4 +78,15 @@ variable "dataproc_template_name" {
 variable "dataproc_machine_type" {
   description = "dataproc machine type"
   default     = "n1-standard-2"
+}
+
+### Bigquery ###
+variable "dataset_stage_name" {
+  description = "dataset name for stage area"
+  default     = "stg"
+}
+
+variable "dataset_datawarehouse_name" {
+  description = "dataset name for dim and fact tables"
+  default = "dw"
 }

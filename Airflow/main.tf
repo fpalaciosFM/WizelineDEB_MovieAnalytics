@@ -59,3 +59,11 @@ module "dataproc" {
   cluster_name = var.dataproc_cluster_name
   machine_type = var.machine_type
 }
+
+module "bigquery" {
+  source = "./modules/bigquery"
+
+  dataset_stg_name = var.dataset_stage_name
+  dataset_dw_name  = var.dataset_datawarehouse_name
+  location         = var.region
+}
