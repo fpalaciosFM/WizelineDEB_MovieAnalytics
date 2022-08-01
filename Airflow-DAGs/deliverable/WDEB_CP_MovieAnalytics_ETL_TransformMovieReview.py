@@ -4,6 +4,9 @@ from airflow import DAG
 from airflow.providers.google.cloud.operators.dataproc import (
     DataprocInstantiateWorkflowTemplateOperator,
 )
+from airflow.providers.google.cloud.operators.bigquery import (
+    BigQueryCreateExternalTableOperator,
+)
 
 default_args = {
     "owner": "Fernando Palacios",
@@ -32,4 +35,15 @@ task_identify_positive_reviews = DataprocInstantiateWorkflowTemplateOperator(
     region="us-west1",
 )
 
-task_identify_positive_reviews
+task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
+    dag=dag,
+    task_id="bigquery_create_external_table",
+    bucket="wizeline-deb-movie-analytics-fpa",
+    source_objects="wizeline-deb-movie-analytics-fpa/parquet/movie_review.parquet/*.parquet",
+    destination_project_dataset_table="stg.movie_review",
+    source_format="parquet",
+    gcp_conn_id="google_cloud_default",
+    google_cloud_storage_conn_id="google_cloud_default",
+)
+
+task_identify_positive_reviews >> task_bigquery_create_external_table
