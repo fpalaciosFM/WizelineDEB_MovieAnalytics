@@ -23,7 +23,7 @@ default_args = {
 dag = DAG(
     "WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
     default_args=default_args,
-    schedule_interval="@once",
+    schedule_interval=None,
     catchup=False,
 )
 
