@@ -6,6 +6,7 @@ from airflow.providers.google.cloud.hooks.gcs import GCSHook
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.postgres_operator import PostgresOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 import google.auth
 
@@ -165,7 +166,14 @@ task_load_gdrive_csv_to_postgres = PythonOperator(
     python_callable=transfer_csv_gdrive_to_postgres,
 )
 
+trigger_run_movie_preview_transformation_dag = TriggerDagRunOperator(
+    dag=dag,
+    task_id="run_movie_preview_transformation_dag",
+    trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
+    trigger_run_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
+)
+
 # task_load_gdrive_to_gcs_user_purchase
-task_load_gdrive_to_gcs_movie_review
+task_load_gdrive_to_gcs_movie_review >> trigger_run_movie_preview_transformation_dag
 task_load_gdrive_to_gcs_log_reviews
 task_postgres_create_table_user_purchase >> task_load_gdrive_csv_to_postgres
