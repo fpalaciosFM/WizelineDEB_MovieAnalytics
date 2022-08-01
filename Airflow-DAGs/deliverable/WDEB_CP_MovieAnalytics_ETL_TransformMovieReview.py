@@ -43,6 +43,7 @@ task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
     destination_project_dataset_table="stg.movie_review",
     source_format="parquet",
     google_cloud_storage_conn_id="google_cloud_default",
+    location="us-west1",
 )
 
 task_identify_positive_reviews >> task_bigquery_create_external_table
