@@ -158,7 +158,6 @@ trigger_run_movie_preview_transformation_dag = TriggerDagRunOperator(
     dag=dag,
     task_id="run_movie_preview_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
-    trigger_run_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
 )
 
 task_load_gdrive_to_gcs_movie_review >> trigger_run_movie_preview_transformation_dag
