@@ -28,6 +28,7 @@ task_identify_positive_reviews = DataprocInstantiateWorkflowTemplateOperator(
     dag=dag,
     gcp_conn_id="google_cloud_default",
     template_id="wdeb-template-movie-review",
+    region="us-west1",
 )
 
 task_identify_positive_reviews
