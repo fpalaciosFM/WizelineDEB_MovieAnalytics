@@ -42,7 +42,6 @@ task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
     source_objects="wizeline-deb-movie-analytics-fpa/parquet/movie_review.parquet/*.parquet",
     destination_project_dataset_table="stg.movie_review",
     source_format="parquet",
-    gcp_conn_id="google_cloud_default",
     google_cloud_storage_conn_id="google_cloud_default",
 )
 
