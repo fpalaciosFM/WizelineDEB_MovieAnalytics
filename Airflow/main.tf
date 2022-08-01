@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     google = {
-      source = "hashicorp/google"
+      source  = "hashicorp/google"
       version = "3.77.0"
     }
   }
@@ -11,8 +11,8 @@ terraform {
 module "vpc" {
   source = "./modules/vpc"
 
-  project_id  = var.project_id
-  
+  project_id = var.project_id
+
 }
 
 module "gke" {
@@ -31,21 +31,31 @@ module "gke" {
 module "cloudsql" {
   source = "./modules/cloudsql"
 
-  region            = var.region
-  location          = var.location
-  instance_name     = var.instance_name
-  database_version  = var.database_version
-  instance_tier     = var.instance_tier
-  disk_space        = var.disk_space
-  database_name     = var.database_name
-  db_username       = var.db_username
-  db_password       = var.db_password
+  region           = var.region
+  location         = var.location
+  instance_name    = var.instance_name
+  database_version = var.database_version
+  instance_tier    = var.instance_tier
+  disk_space       = var.disk_space
+  database_name    = var.database_name
+  db_username      = var.db_username
+  db_password      = var.db_password
 }
 
-module "gcs"{
+module "gcs" {
   source = "./modules/gcs"
 
   location        = var.region
   stg_bucket_name = var.stg_bucket_name
   instance_name   = var.instance_name
+}
+
+module "dataproc" {
+  source = "./modules/dataproc"
+
+  location     = var.location
+  region       = var.region
+  name         = var.dataproc_template_name
+  cluster_name = var.dataproc_cluster_name
+  machine_type = var.machine_type
 }

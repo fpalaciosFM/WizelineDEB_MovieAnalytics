@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "project id"
 }
+
 variable "location" {
   description = "location"
 }
@@ -61,4 +62,20 @@ variable "db_password" {
 variable "stg_bucket_name" {
   description = "GCS stage bucket name"
   default     = "WizelineDEB_bucket_stage"
+}
+
+#Dataproc
+variable "dataproc_cluster_name" {
+  description = "dataproc cluster name"
+  default     = "wdeb-cluster"
+}
+
+variable "dataproc_template_name" {
+  description = "dataproc cluster name"
+  default     = "wdeb-template"
+}
+
+variable "dataproc_machine_type" {
+  description = "dataproc machine type"
+  default     = "n1-standard-2"
 }
