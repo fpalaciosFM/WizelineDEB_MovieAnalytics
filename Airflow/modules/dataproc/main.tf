@@ -30,3 +30,36 @@ resource "google_dataproc_workflow_template" "template" {
     }
   }
 }
+
+resource "google_dataproc_workflow_template" "template_log_review" {
+  name     = "${var.name}-log-review"
+  location = var.region
+  placement {
+    managed_cluster {
+      cluster_name = "${var.cluster_name}-log-review"
+      config {
+        gce_cluster_config {
+          zone = var.location
+        }
+        master_config {
+          num_instances = 1
+          machine_type  = "n1-standard-2"
+          disk_config {
+            boot_disk_type    = "pd-ssd"
+            boot_disk_size_gb = 30
+          }
+        }
+
+        software_config {
+          image_version = "2.0-debian10"
+        }
+      }
+    }
+  }
+  jobs {
+    step_id = "log_review_expand_xml"
+    pyspark_job {
+      main_python_file_uri = "gs://wizeline-deb-movie-analytics-fpa/Dataproc/log_review_expand_xml.py"
+    }
+  }
+}
