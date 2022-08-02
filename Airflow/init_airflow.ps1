@@ -7,7 +7,7 @@ $voice.speak("Airflow Initialization Script for Wizeline's Data Engineer Bootcam
 
 Write-Host '** Updating instance name **' -ForegroundColor DarkYellow
 $fileContent = (Get-Content .\terraform.tfvars)
-$matcher = Select-String -InputObject $fileContent -Pattern 'instance_name     = "data-bootcamp-(\d+)"'
+$matcher = Select-String -InputObject $fileContent -Pattern 'instance_name\s+=\s+"data-bootcamp-(\d+)"'
 $version = $matcher.Matches.Groups[1].Value -as [int32]
 $versionUpdated = $version + 1
 $instanceNameUpdated = 'data-bootcamp-' + $versionUpdated
