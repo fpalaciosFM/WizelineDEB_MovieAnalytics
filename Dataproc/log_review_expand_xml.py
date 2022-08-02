@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
 spark = SparkSession.builder.appName("WDEB").getOrCreate()
@@ -31,4 +31,10 @@ df = (
 # select required columns
 df = df.select(
     "log_id", "log_date", "device", "os", "location", "browser", "ip", "phone_number"
+)
+
+# save file in bucket with parquet format
+df.write.parquet(
+    "gs://wizeline-deb-movie-analytics-fpa/parquet/log_review.parquet",
+    mode="overwrite",
 )

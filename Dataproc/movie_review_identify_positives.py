@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import SparkSession
 from pyspark.ml.feature import Tokenizer, StopWordsRemover
 from pyspark.sql.functions import (
     col,

@@ -26,7 +26,7 @@ dag = DAG(
     catchup=False,
 )
 
-task_expand_column_ = DataprocInstantiateWorkflowTemplateOperator(
+task_expand_xml_column_log = DataprocInstantiateWorkflowTemplateOperator(
     dag=dag,
     task_id="identify_positive_reviews",
     gcp_conn_id="google_cloud_default",
@@ -44,3 +44,5 @@ task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
     google_cloud_storage_conn_id="google_cloud_default",
     location="us-west1",
 )
+
+task_expand_xml_column_log >> task_bigquery_create_external_table
