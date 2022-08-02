@@ -22,7 +22,7 @@ df = df.selectExpr(
 # rename columns
 df = (
     df.withColumn("log_id", col("id_review"))
-    .withColumn("log_date", to_date(col("logDate")))
+    .withColumn("log_date", to_date(col("logDate"), "MM-dd-yyyy"))
     .withColumn("ip", col("ipAddress"))
     .withColumn("phone_number", col("phoneNumber"))
     .withColumn("browser", col("os"))
