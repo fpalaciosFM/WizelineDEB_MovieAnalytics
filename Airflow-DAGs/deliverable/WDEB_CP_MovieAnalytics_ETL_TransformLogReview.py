@@ -28,7 +28,7 @@ dag = DAG(
 
 task_expand_xml_column_log = DataprocInstantiateWorkflowTemplateOperator(
     dag=dag,
-    task_id="identify_positive_reviews",
+    task_id="expand_xml_column_log",
     gcp_conn_id="google_cloud_default",
     template_id="wdeb-template-log-review",
     region="us-west1",
