@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, to_date
 
 spark = SparkSession.builder.appName("WDEB").getOrCreate()
 
@@ -22,7 +22,7 @@ df = df.selectExpr(
 # rename columns
 df = (
     df.withColumn("log_id", col("id_review"))
-    .withColumn("log_date", col("logDate"))
+    .withColumn("log_date", to_date(col("logDate")))
     .withColumn("ip", col("ipAddress"))
     .withColumn("phone_number", col("phoneNumber"))
     .withColumn("browser", col("os"))
