@@ -28,7 +28,7 @@ task_extract_postgres_to_csv_gcs_user_purchase = PostgresToGCSOperator(
     dag=dag,
     task_id="extract_postgres_to_csv_gcs_user_purchase",
     postgres_conn_id="postgres_default",
-    query="SELECT * FROM stg.user_purchase",
+    sql="SELECT * FROM stg.user_purchase",
     bucket="wizeline-deb-movie-analytics-fpa",
     filename="user_purchase.csv",
 )
