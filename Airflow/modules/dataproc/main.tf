@@ -17,6 +17,15 @@ resource "google_dataproc_workflow_template" "template" {
           }
         }
 
+        worker_config {
+          num_instances = 2
+          machine_type  = "n1-standard-2"
+          disk_config {
+            boot_disk_size_gb = 30
+            num_local_ssds    = 1
+          }
+        }
+
         software_config {
           image_version = "2.0-debian10"
         }
@@ -47,6 +56,15 @@ resource "google_dataproc_workflow_template" "template_log_review" {
           disk_config {
             boot_disk_type    = "pd-ssd"
             boot_disk_size_gb = 30
+          }
+        }
+
+        worker_config {
+          num_instances = 2
+          machine_type  = "n1-standard-2"
+          disk_config {
+            boot_disk_size_gb = 30
+            num_local_ssds    = 1
           }
         }
 
