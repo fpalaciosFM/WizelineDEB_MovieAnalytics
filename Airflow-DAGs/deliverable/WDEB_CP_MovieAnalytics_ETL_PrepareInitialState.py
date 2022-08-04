@@ -154,15 +154,15 @@ task_load_gdrive_csv_to_postgres_user_purchase = PythonOperator(
     python_callable=transfer_csv_gdrive_to_postgres,
 )
 
-trigger_run_movie_preview_transformation_dag = TriggerDagRunOperator(
+trigger_run_movie_review_transformation_dag = TriggerDagRunOperator(
     dag=dag,
-    task_id="run_movie_preview_transformation_dag",
+    task_id="run_movie_review_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
 )
 
-trigger_run_log_preview_transformation_dag = TriggerDagRunOperator(
+trigger_run_log_review_transformation_dag = TriggerDagRunOperator(
     dag=dag,
-    task_id="run_log_preview_transformation_dag",
+    task_id="run_log_review_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformLogReview",
 )
 
@@ -172,8 +172,8 @@ trigger_run_user_purchase_transformation_dag = TriggerDagRunOperator(
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformUserPurchase",
 )
 
-task_load_gdrive_to_gcs_movie_review >> trigger_run_movie_preview_transformation_dag
-task_load_gdrive_to_gcs_log_reviews >> trigger_run_log_preview_transformation_dag
+task_load_gdrive_to_gcs_movie_review >> trigger_run_movie_review_transformation_dag
+task_load_gdrive_to_gcs_log_reviews >> trigger_run_log_review_transformation_dag
 (
     task_postgres_create_table_user_purchase
     >> task_load_gdrive_csv_to_postgres_user_purchase
