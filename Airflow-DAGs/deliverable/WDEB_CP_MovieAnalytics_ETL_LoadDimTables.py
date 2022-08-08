@@ -29,17 +29,7 @@ task_dim_location_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_location_create",
     gcp_conn_id="google_cloud_default",
-    sql=""""
-        SELECT
-            RANK() OVER (ORDER BY location) AS id_dim_location,
-            location,
-            CASE WHEN location in ("Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming") THEN "West" -- source: https://en.wikipedia.org/wiki/Western_United_States
-            ELSE "East" END region
-        FROM
-            `stg.log_review`
-        GROUP BY
-            location
-    """,
+    sql=""""SELECT RANK() OVER (ORDER BY location) AS id_dim_location, location, CASE WHEN location in ("Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming") THEN "West" -- source: https://en.wikipedia.org/wiki/Western_United_States ELSE "East" END region FROM `stg.log_review` GROUP BY location""",
     destination_dataset_table="dw.dim_location",
     create_disposition="CREATE_IF_NEEDED",
     write_disposition="WRITE_TRUNCATE",
