@@ -159,18 +159,21 @@ trigger_run_movie_review_transformation_dag = TriggerDagRunOperator(
     dag=dag,
     task_id="run_movie_review_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
+    wait_for_completion=True,
 )
 
 trigger_run_log_review_transformation_dag = TriggerDagRunOperator(
     dag=dag,
     task_id="run_log_review_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformLogReview",
+    wait_for_completion=True,
 )
 
 trigger_run_user_purchase_transformation_dag = TriggerDagRunOperator(
     dag=dag,
     task_id="run_user_purchase_transformation_dag",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformUserPurchase",
+    wait_for_completion=True,
 )
 
 task_load_gdrive_to_gcs_movie_review >> trigger_run_movie_review_transformation_dag
