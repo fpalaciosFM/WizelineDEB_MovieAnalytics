@@ -50,7 +50,7 @@ task_dim_browser_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_browser_create",
     gcp_conn_id="google_cloud_default",
-    sql=""""
+    sql="""
         SELECT
             RANK() OVER (ORDER BY browser) AS id_dim_browser,
             browser
@@ -69,7 +69,7 @@ task_dim_date_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_date_create",
     gcp_conn_id="google_cloud_default",
-    sql=""""
+    sql="""
         SELECT
             RANK() OVER (ORDER BY log_date) AS id_dim_date,
             log_date,
@@ -100,7 +100,7 @@ task_dim_devices_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_devices_create",
     gcp_conn_id="google_cloud_default",
-    sql=""""
+    sql="""
         SELECT
             RANK() OVER (ORDER BY device) AS id_dim_device,
             device
@@ -119,7 +119,7 @@ task_dim_os_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_os_create",
     gcp_conn_id="google_cloud_default",
-    sql=""""
+    sql="""
         SELECT
             RANK() OVER (ORDER BY os) AS id_dim_os,
             os

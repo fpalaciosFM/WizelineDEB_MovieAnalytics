@@ -29,7 +29,7 @@ task_fact_movie_analytics = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="fact_movie_analytics",
     gcp_conn_id="google_cloud_default",
-    sql=""""
+    sql="""
         WITH
             amount_collected_per_customer AS (
             SELECT
