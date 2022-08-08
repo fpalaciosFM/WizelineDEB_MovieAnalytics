@@ -64,6 +64,33 @@ trigger_transform_user_purchase = TriggerDagRunOperator(
     wait_for_completion=True,
 )
 
-trigger_extract_log_review >> trigger_transform_log_review
-trigger_extract_movie_review >> trigger_transform_movie_review
-trigger_extract_user_purchase >> trigger_transform_user_purchase
+trigger_load_dim_tables = TriggerDagRunOperator(
+    dag=dag,
+    task_id="load_dim_tables",
+    trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_LoadDimTables",
+    wait_for_completion=True,
+)
+
+trigger_load_fact_table = TriggerDagRunOperator(
+    dag=dag,
+    task_id="load_fact_table",
+    trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_LoadFactTable",
+    wait_for_completion=True,
+)
+
+(
+    trigger_extract_log_review
+    >> trigger_transform_log_review
+    >> trigger_load_dim_tables
+    >> trigger_load_fact_table
+)
+(
+    trigger_extract_movie_review
+    >> trigger_transform_movie_review
+    >> trigger_load_fact_table
+)
+(
+    trigger_extract_user_purchase
+    >> trigger_transform_user_purchase
+    >> trigger_load_fact_table
+)
