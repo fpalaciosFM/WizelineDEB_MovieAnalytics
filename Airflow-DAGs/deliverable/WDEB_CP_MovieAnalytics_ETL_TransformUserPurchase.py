@@ -27,6 +27,7 @@ dag = DAG(
     default_args=default_args,
     schedule_interval=None,
     catchup=False,
+    max_active_runs=1,
 )
 
 task_extract_postgres_to_json_gcs_user_purchase = PostgresToGCSOperator(

@@ -30,6 +30,7 @@ dag = DAG(
     default_args=default_args,
     schedule_interval="@once",
     catchup=False,
+    max_active_runs=1,
 )
 
 
