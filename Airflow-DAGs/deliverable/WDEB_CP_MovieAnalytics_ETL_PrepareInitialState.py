@@ -38,10 +38,10 @@ def get_gdrive_credentials_with_service_account_var(
 ) -> google.auth.credentials.Credentials:
     # Google Drive API must be enabled in GCP
     # Using google service account for gdrive api
-    # with open(f"{var_sa_id}.json", "w") as file:
-    #     file.write(Variable.get(var_sa_id))
+    with open(f"{var_sa_id}.json", "w") as file:
+        file.write(Variable.get(var_sa_id))
 
-    creds, _ = google.auth.load_credentials_from_file(Variable.get(var_sa_id))
+    creds, _ = google.auth.load_credentials_from_file(f"{var_sa_id}.json")
     return creds
 
 
