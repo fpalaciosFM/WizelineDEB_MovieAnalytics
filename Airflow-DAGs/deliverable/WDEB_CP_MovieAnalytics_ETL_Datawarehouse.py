@@ -31,6 +31,7 @@ sensor_wait_for_transform_log_review = ExternalTaskSensor(
     task_id="wait_for_transform_log_review",
     external_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformLogReview",
     external_task_id="bigquery_create_external_table",
+    execution_delta=timedelta(hours=-1),
 )
 
 sensor_wait_for_transform_movie_review = ExternalTaskSensor(
@@ -38,6 +39,7 @@ sensor_wait_for_transform_movie_review = ExternalTaskSensor(
     task_id="wait_for_transform_movie_review",
     external_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
     external_task_id="bigquery_create_external_table",
+    execution_delta=timedelta(hours=-1),
 )
 
 sensor_wait_for_transform_user_purchase = ExternalTaskSensor(
@@ -45,6 +47,7 @@ sensor_wait_for_transform_user_purchase = ExternalTaskSensor(
     task_id="wait_for_transform_user_purchase",
     external_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformUserPurchase",
     external_task_id="bigquery_create_external_table",
+    execution_delta=timedelta(hours=-1),
 )
 
 task_dim_location_create = BigQueryExecuteQueryOperator(
