@@ -33,7 +33,7 @@ task_dim_location_create = BigQueryExecuteQueryOperator(
         SELECT
             RANK() OVER (ORDER BY location) AS id_dim_location,
             location,
-            CASE WHEN location in ("Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming") THEN "West" -- source: https://en.wikipedia.org/wiki/Western_United_States
+            CASE WHEN location in ("Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming") THEN "West"
             ELSE "East" END region
         FROM
             `stg.log_review`
