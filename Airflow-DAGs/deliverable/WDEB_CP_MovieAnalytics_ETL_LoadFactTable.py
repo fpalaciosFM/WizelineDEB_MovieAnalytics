@@ -28,6 +28,7 @@ dag = DAG(
 task_fact_movie_analytics = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="fact_movie_analytics",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS
         dw.id_fact_movie_analytics;

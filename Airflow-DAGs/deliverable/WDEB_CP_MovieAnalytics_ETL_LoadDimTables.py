@@ -28,6 +28,7 @@ dag = DAG(
 task_dim_location_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_location_create",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS dw.dim_location;
         CREATE TABLE
@@ -47,6 +48,7 @@ task_dim_location_create = BigQueryExecuteQueryOperator(
 task_dim_browser_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_browser_create",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS dw.dim_browser;
         CREATE TABLE
@@ -64,6 +66,7 @@ task_dim_browser_create = BigQueryExecuteQueryOperator(
 task_dim_date_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_date_create",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS
         dw.dim_date;
@@ -94,6 +97,7 @@ task_dim_date_create = BigQueryExecuteQueryOperator(
 task_dim_devices_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_devices_create",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS dw.dim_devices;
         CREATE TABLE
@@ -111,6 +115,7 @@ task_dim_devices_create = BigQueryExecuteQueryOperator(
 task_dim_os_create = BigQueryExecuteQueryOperator(
     dag=dag,
     task_id="dim_os_create",
+    gcp_conn_id="google_cloud_default",
     sql=""""
         DROP TABLE IF EXISTS dw.dim_devices;
         CREATE TABLE
