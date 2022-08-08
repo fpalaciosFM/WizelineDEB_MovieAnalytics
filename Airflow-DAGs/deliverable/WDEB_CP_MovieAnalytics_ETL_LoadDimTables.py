@@ -43,6 +43,7 @@ task_dim_location_create = BigQueryExecuteQueryOperator(
     destination_dataset_table="dw.dim_location",
     create_disposition="CREATE_IF_NEEDED",
     write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
 )
 
 # task_dim_browser_create = BigQueryExecuteQueryOperator(
