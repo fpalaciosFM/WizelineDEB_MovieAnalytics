@@ -30,10 +30,6 @@ task_fact_movie_analytics = BigQueryExecuteQueryOperator(
     task_id="fact_movie_analytics",
     gcp_conn_id="google_cloud_default",
     sql=""""
-        DROP TABLE IF EXISTS
-        dw.id_fact_movie_analytics;
-        CREATE TABLE
-        dw.fact_movie_analytics AS(
         WITH
             amount_collected_per_customer AS (
             SELECT
@@ -89,8 +85,12 @@ task_fact_movie_analytics = BigQueryExecuteQueryOperator(
             DIM_DEV.id_dim_device,
             DIM_OS.id_dim_os,
             DIM_BRO.id_dim_browser,
-            DIM_DATE.id_dim_date )
+            DIM_DATE.id_dim_date
     """,
+    destination_dataset_table="dw.fact_movie_analytics",
+    create_disposition="CREATE_IF_NEEDED",
+    write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
 )
 
 task_fact_movie_analytics

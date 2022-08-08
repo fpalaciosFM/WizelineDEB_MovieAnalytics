@@ -46,94 +46,96 @@ task_dim_location_create = BigQueryExecuteQueryOperator(
     use_legacy_sql=False,
 )
 
-# task_dim_browser_create = BigQueryExecuteQueryOperator(
-#     dag=dag,
-#     task_id="dim_browser_create",
-#     gcp_conn_id="google_cloud_default",
-#     sql=""""
-#         DROP TABLE IF EXISTS dw.dim_browser;
-#         CREATE TABLE
-#         dw.dim_browser AS(
-#         SELECT
-#             RANK() OVER (ORDER BY browser) AS id_dim_browser,
-#             browser
-#         FROM
-#             `stg.log_review`
-#         GROUP BY
-#             browser )
-#     """,
-# )
+task_dim_browser_create = BigQueryExecuteQueryOperator(
+    dag=dag,
+    task_id="dim_browser_create",
+    gcp_conn_id="google_cloud_default",
+    sql=""""
+        SELECT
+            RANK() OVER (ORDER BY browser) AS id_dim_browser,
+            browser
+        FROM
+            `stg.log_review`
+        GROUP BY
+            browser
+    """,
+    destination_dataset_table="dw.dim_browser",
+    create_disposition="CREATE_IF_NEEDED",
+    write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
+)
 
-# task_dim_date_create = BigQueryExecuteQueryOperator(
-#     dag=dag,
-#     task_id="dim_date_create",
-#     gcp_conn_id="google_cloud_default",
-#     sql=""""
-#         DROP TABLE IF EXISTS
-#         dw.dim_date;
-#         CREATE TABLE
-#         dw.dim_date AS(
-#         SELECT
-#             RANK() OVER (ORDER BY log_date) AS id_dim_date,
-#             log_date,
-#             EXTRACT(DAY
-#             FROM
-#             log_date) day,
-#             EXTRACT(MONTH
-#             FROM
-#             log_date) month,
-#             EXTRACT(YEAR
-#             FROM
-#             log_date) year,
-#             EXTRACT(QUARTER
-#             FROM
-#             log_date) season,
-#         FROM
-#             `stg.log_review`
-#         GROUP BY
-#             log_date )
-#     """,
-# )
+task_dim_date_create = BigQueryExecuteQueryOperator(
+    dag=dag,
+    task_id="dim_date_create",
+    gcp_conn_id="google_cloud_default",
+    sql=""""
+        SELECT
+            RANK() OVER (ORDER BY log_date) AS id_dim_date,
+            log_date,
+            EXTRACT(DAY
+            FROM
+            log_date) day,
+            EXTRACT(MONTH
+            FROM
+            log_date) month,
+            EXTRACT(YEAR
+            FROM
+            log_date) year,
+            EXTRACT(QUARTER
+            FROM
+            log_date) season,
+        FROM
+            `stg.log_review`
+        GROUP BY
+            log_date
+    """,
+    destination_dataset_table="dw.dim_date",
+    create_disposition="CREATE_IF_NEEDED",
+    write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
+)
 
-# task_dim_devices_create = BigQueryExecuteQueryOperator(
-#     dag=dag,
-#     task_id="dim_devices_create",
-#     gcp_conn_id="google_cloud_default",
-#     sql=""""
-#         DROP TABLE IF EXISTS dw.dim_devices;
-#         CREATE TABLE
-#         dw.dim_devices AS(
-#         SELECT
-#             RANK() OVER (ORDER BY device) AS id_dim_device,
-#             device
-#         FROM
-#             `stg.log_review`
-#         GROUP BY
-#             device )
-#     """,
-# )
+task_dim_devices_create = BigQueryExecuteQueryOperator(
+    dag=dag,
+    task_id="dim_devices_create",
+    gcp_conn_id="google_cloud_default",
+    sql=""""
+        SELECT
+            RANK() OVER (ORDER BY device) AS id_dim_device,
+            device
+        FROM
+            `stg.log_review`
+        GROUP BY
+            device
+    """,
+    destination_dataset_table="dw.dim_devices",
+    create_disposition="CREATE_IF_NEEDED",
+    write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
+)
 
-# task_dim_os_create = BigQueryExecuteQueryOperator(
-#     dag=dag,
-#     task_id="dim_os_create",
-#     gcp_conn_id="google_cloud_default",
-#     sql=""""
-#         DROP TABLE IF EXISTS dw.dim_devices;
-#         CREATE TABLE
-#         dw.dim_devices AS(
-#         SELECT
-#             RANK() OVER (ORDER BY device) AS id_dim_device,
-#             device
-#         FROM
-#             `stg.log_review`
-#         GROUP BY
-#             device )
-#     """,
-# )
-
+task_dim_os_create = BigQueryExecuteQueryOperator(
+    dag=dag,
+    task_id="dim_os_create",
+    gcp_conn_id="google_cloud_default",
+    sql=""""
+        SELECT
+            RANK() OVER (ORDER BY os) AS id_dim_os,
+            os
+        FROM
+            `stg.log_review`
+        GROUP BY
+            os
+    """,
+    destination_dataset_table="dw.dim_os",
+    create_disposition="CREATE_IF_NEEDED",
+    write_disposition="WRITE_TRUNCATE",
+    use_legacy_sql=False,
+)
 
 task_dim_location_create
-# task_dim_browser_create
-# task_dim_date_create
-# task_dim_devices_create
-# task_dim_os_create
+task_dim_browser_create
+task_dim_date_create
+task_dim_devices_create
+task_dim_os_create
