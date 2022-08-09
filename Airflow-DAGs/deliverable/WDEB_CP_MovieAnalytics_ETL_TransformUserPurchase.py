@@ -44,7 +44,7 @@ task_convert_json_to_parquet = DataprocInstantiateWorkflowTemplateOperator(
     task_id="convert_json_to_parquet",
     gcp_conn_id="google_cloud_default",
     template_id="wdeb-template-user-purchase",
-    region="us-west1",
+    region="us-central1",
 )
 
 task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
@@ -55,7 +55,7 @@ task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
     destination_project_dataset_table="stg.user_purchase",
     source_format="parquet",
     google_cloud_storage_conn_id="google_cloud_default",
-    location="us-west1",
+    location="us-central1",
 )
 
 (
