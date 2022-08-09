@@ -32,7 +32,7 @@ task_expand_xml_column_log = DataprocInstantiateWorkflowTemplateOperator(
     task_id="expand_xml_column_log",
     gcp_conn_id="google_cloud_default",
     template_id="wdeb-template-log-review",
-    region="us-west1",
+    region="us-central1",
 )
 
 task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
@@ -43,7 +43,7 @@ task_bigquery_create_external_table = BigQueryCreateExternalTableOperator(
     destination_project_dataset_table="stg.log_review",
     source_format="parquet",
     google_cloud_storage_conn_id="google_cloud_default",
-    location="us-west1",
+    location="us-central1",
 )
 
 task_expand_xml_column_log >> task_bigquery_create_external_table
