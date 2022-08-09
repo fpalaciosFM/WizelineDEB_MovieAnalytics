@@ -27,6 +27,7 @@ trigger_extract_log_review = TriggerDagRunOperator(
     task_id="extract_log_review",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_ExtractLogReview",
     wait_for_completion=True,
+    poke_interval=5,
 )
 
 trigger_extract_movie_review = TriggerDagRunOperator(
@@ -34,6 +35,7 @@ trigger_extract_movie_review = TriggerDagRunOperator(
     task_id="extract_movie_review",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_ExtractMovieReview",
     wait_for_completion=True,
+    poke_interval=5,
 )
 
 trigger_extract_user_purchase = TriggerDagRunOperator(
@@ -41,6 +43,7 @@ trigger_extract_user_purchase = TriggerDagRunOperator(
     task_id="extract_user_purchase",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_ExtractUserPurchase",
     wait_for_completion=True,
+    poke_interval=5,
 )
 
 trigger_transform_log_review = TriggerDagRunOperator(
@@ -72,6 +75,7 @@ trigger_load_dim_tables = TriggerDagRunOperator(
     task_id="load_dim_tables",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_LoadDimTables",
     wait_for_completion=True,
+    poke_interval=5,
 )
 
 trigger_load_fact_table = TriggerDagRunOperator(
@@ -79,6 +83,7 @@ trigger_load_fact_table = TriggerDagRunOperator(
     task_id="load_fact_table",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_LoadFactTable",
     wait_for_completion=True,
+    poke_interval=5,
 )
 
 (
