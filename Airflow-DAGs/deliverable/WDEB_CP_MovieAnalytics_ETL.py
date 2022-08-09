@@ -48,6 +48,7 @@ trigger_transform_log_review = TriggerDagRunOperator(
     task_id="transform_log_review",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformLogReview",
     wait_for_completion=True,
+    retries=8,
 )
 
 trigger_transform_movie_review = TriggerDagRunOperator(
@@ -55,6 +56,7 @@ trigger_transform_movie_review = TriggerDagRunOperator(
     task_id="transform_movie_review",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformMovieReview",
     wait_for_completion=True,
+    retries=8,
 )
 
 trigger_transform_user_purchase = TriggerDagRunOperator(
@@ -62,6 +64,7 @@ trigger_transform_user_purchase = TriggerDagRunOperator(
     task_id="transform_user_purchase",
     trigger_dag_id="WDEB_CP_MovieAnalytics_ETL_TransformUserPurchase",
     wait_for_completion=True,
+    retries=8,
 )
 
 trigger_load_dim_tables = TriggerDagRunOperator(
